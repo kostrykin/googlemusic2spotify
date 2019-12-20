@@ -1,0 +1,12 @@
+name: googlemusic2spotify
+channels:
+  - anaconda
+  - conda-forge
+dependencies:
+  - python>=3.6
+  - ipython
+  - selenium
+  - geckodriver
+  - numpy
+  - requests
+  - click

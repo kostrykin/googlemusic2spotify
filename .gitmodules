@@ -1,0 +1,3 @@
+[submodule "spotipy_repo"]
+	path = spotipy_repo
+	url = https://github.com/felix-hilden/spotipy.git
