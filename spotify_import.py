@@ -125,6 +125,7 @@ for playlist_name, songs in playlists.items():
             track_ids.clear()
     for song in songs:
         sys.stdout.write(f'  ...{song["title"]}')
+        sys.stdout.flush()
         retry = True
         relax = 0
         # Relaxation level 1: Omit the album
@@ -173,8 +174,6 @@ for playlist_name, songs in playlists.items():
                 sys.stdout.write(f' [{message}]\n')
     submit_songs()
 print(f'Imported {total_imports} songs')
-with open(args.failures_output, 'w') as fout:
-    json.dump(failures, fout)
 
 bad_matches = []
 for playlist_name, failed_imports in failures.items():
@@ -204,6 +203,9 @@ if len(bad_matches) > 0:
             if click.confirm(f' Accept this for {playlist_name}? {song_search_query}', default=True):
                 api_call(sp.playlist_tracks_add, failure['playlist_id'], [failure['song_resolution_id']])
                 failures[playlist_name].remove(failure)
+
+with open(args.failures_output, 'w') as fout:
+    json.dump(failures, fout)
 
 total_failures = len(sum(failures.values(), []))
 
